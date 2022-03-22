@@ -1,0 +1,51 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;700&display=swap&family=Shippori+Antique+B1&display=swap');
+
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.divider {
+    display: flex;
+    align-items: center;
+    text-align: center;
+
+    margin-bottom: 10px;
+}
+  
+
+.divider::after,
+.divider::before {
+    content: "";
+    border: 1px solid black;
+    flex: 1;
+}
+
+.divider:not(:empty)::before {
+    margin-right: 4em;
+}
+
+.divider:not(:empty)::after {
+    margin-left: 4em;
+}
+
+footer {
+    font-family: 'Oswald', sans-serif;
+    font-size: 1em;
+    height: 30vh;
+    color: #FFFFFF;
+    background-color: #960B0B;
+}
+
+footer a {
+    color: #FFFFFF;
+    font-size: 1.2em;
+    text-decoration: none;
+}
+
+footer a:hover {
+    text-decoration: none;
+    font-size: 1.2em;
+    color: #FFFFFF;
+}
