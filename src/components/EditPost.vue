@@ -12,26 +12,15 @@
                     aria-describedby="submit"
                     v-model="title"
                 />
-                <div class="info">
-                    <input
+                <input
                     type="text"
                     id="author"
-                    class="form-control mr"
+                    class="form-control"
                     placeholder="Autor*in"
                     aria-label="author"
                     aria-describedby="submit"
                     v-model="author"
-                    />
-                    <input
-                        type="text"
-                        id="date"
-                        class="form-control"
-                        placeholder="Datum"
-                        aria-label="date"
-                        aria-describedby="submit"
-                        v-model="date"
-                    />
-                </div>
+                />
                 <textarea
                     name="content"
                     id="content"
@@ -54,6 +43,7 @@ const axios = require("axios")
 export default {
     name: "EditPost",
     props: {
+        user: String,
         Post: {
             _id: String,
             title: String,
@@ -79,11 +69,16 @@ export default {
             console.log(`${this.Post._id} | ${this.title} | ${this.author} | ${this.content}`)
             if (this.ptype == 0) {
                 console.log("New Post")
-                axios.post("http://localhost:8080/api/post/new", {
+                // get current date
+                let date = new Date()
+                let dateString = date.getDate() + "/" + date.getMonth() + "/" + date.getFullYear()
+
+                // send new post request
+                axios.post("http://localhost:8081/api/post/new", {
                     post: {
                         title: this.title,
                         author: this.author,
-                        date: this.date,
+                        date: dateString,
                         content: this.content
                     }
                 }, {
@@ -100,7 +95,7 @@ export default {
                 });
             } else {
                 console.log("Post Update")
-                axios.post("http://localhost:8080/api/post/update", {
+                axios.post("http://localhost:8081/api/post/update", {
                     post: {
                         _id: this.Post._id,
                         title: this.title,
@@ -175,13 +170,6 @@ textarea {
     border-radius: 0;
     width: 100%;
     font-weight: 300;
-}
-
-.info {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    /*flex-wrap: wrap;*/
 }
 
 .mr {

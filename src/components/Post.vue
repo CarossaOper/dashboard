@@ -60,7 +60,7 @@ export default {
             let cook = this.getCookie("token")
             console.log(cook)
 
-            axios.post("http://localhost:8080/api/post/delete", {
+            axios.post("http://localhost:8081/api/post/delete", {
                 _id: this.Post._id
             }, {
                 headers: {

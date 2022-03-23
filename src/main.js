@@ -4,13 +4,11 @@ const jwt = require("jsonwebtoken")
 
 import Dashboard from "@/views/Dashboard.vue"
 import Login from "@/views/Login.vue"
-import Post from "@/views/Post.vue"
 
 let isAuthenticated = false;
 
 const routes = [
     { path: '/',                component: Dashboard,   name: "Dashboard",  meta: { requiresAuth: true } },
-    { path: '/post',            component: Post,        name: "Post",       meta: { requiresAuth: true} },
     { path: '/login',           component: Login,       name: "Login",      meta: {requiresAuth: false }},
 ]
 

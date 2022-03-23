@@ -4,5 +4,5 @@ COPY package*.json ./
 RUN npm install
 COPY . .
 RUN npm run build
-EXPOSE 81
+EXPOSE 82
 CMD [ "node", "./serve.js"]

@@ -10,7 +10,6 @@
                     class="form-control"
                     placeholder="Nutzer"
                     aria-label="user"
-                    aria-describedby="login-submit"
                     v-model="user"
                 />
 
@@ -20,14 +19,18 @@
                     class="form-control"
                     placeholder="Passwort"
                     aria-label="passwd"
-                    aria-describedby="login-submit"
                     v-model="passwd"
                 />
             </div>
-            <button class="btn" type="button" id="login-submit" v-on:click="login">
-                <span class="btn-text">Login</span>
-            </button>
-            <router-link to="/" exact>Home</router-link>
+            <div class="d-flex flex-row justify-content-between">
+                <button class="btn" type="button" id="register-submit" v-on:click="register">
+                    <span class="btn-text">Register</span>
+                </button>
+                <button class="btn" type="button" id="login-submit" v-on:click="login">
+                    <span class="btn-text">Login</span>
+                </button>
+            </div>
+            <a href="http://carossa-oper.de/">Home</a>
         </div>
     </div>
 </template>
@@ -40,12 +43,16 @@ export default {
     data() {
         return {
             user: "",
-            passwd: ""
+            passwd: "",
+            status: "",
         }
     },
     computed: {
         statusMsg() {
-            if (this.user.length == 0 && this.passwd.length == 0) {
+            console.log(this.status)
+            if (this.status != "") {
+                return `Error: ${this.status}`
+            } else if (this.user.length == 0 && this.passwd.length == 0) {
                 return 'Please enter your Username and Password'
             } else if (this.user.length == 0) {
                 return 'Username can not be empty'
@@ -60,20 +67,40 @@ export default {
         login() {
             if (this.user.length != 0 || this.passwd.length != 0) {
                 console.log(`${this.user} | ${this.passwd}`)
-                axios.post('http://localhost:8081/auth/login', {
+                let main = this
+                axios.post('http://localhost:8082/auth/login', {
                     user: this.user,
                     password: this.passwd
                 })
                 .then(function (response) {
-                    console.log(response.data);
+                    console.log(response);
                     document.cookie = "token=" + response.data.token +  "; path=/"
                     window.location = "/"
                 })
                 .catch(function (error) {
-                    console.log(error)
+                    console.log(error.response)
+                    main.status = error.response.data
                 });
             }
-        }
+        },
+        register() {
+            if (this.user.length != 0 || this.passwd.length != 0) {
+                let main = this
+                console.log(`${this.user} | ${this.passwd}`)
+                axios.post('http://localhost:8082/auth/register', {
+                    user: this.user,
+                    password: this.passwd
+                })
+                .then(function (response) {
+                    console.log(response)
+                    window.location = "/"
+                })
+                .catch(function (error) {
+                    console.log(error.response)
+                    main.status = error.response.data
+                });
+            }
+        },
     }
 }
 </script>
@@ -84,13 +111,17 @@ export default {
     visibility: hidden;
 }
 
+#register-submit {
+    margin-right: 1rem;
+}
+
 .login {
     position: absolute;
     top: 30%;
     left: 50%;
 
     border: 5px solid #5482B6;
-    min-width: 300px;
+    min-width: 100px;
 
     transform: translate(-50%, -50%);
 }
