@@ -60,13 +60,13 @@ export default {
             let cook = this.getCookie("token")
             console.log(cook)
 
-            axios.post("http://localhost:8081/api/post/delete", {
+            axios.post("http://carossa-oper.de:8081/api/post/delete", {
                 _id: this.Post._id
             }, {
                 headers: {
                     Authorization: `Bearer ${cook}`
                 }
-            })
+            }, { crossdomain: true })
                 .then(function (response) {
                     console.log(response.data);
                     window.location = "/"

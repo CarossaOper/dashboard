@@ -37,7 +37,7 @@ export default {
     created() {
         let main = this
 
-        axios.get('http://localhost:8081/api/blog', { crossdomain: true })
+        axios.get('http://carossa-oper.de:8081/api/blog', { crossdomain: true })
         .then(function (response) {
             console.log(response.data);
             main.posts = response.data.blog.reverse()

@@ -68,10 +68,10 @@ export default {
             if (this.user.length != 0 || this.passwd.length != 0) {
                 console.log(`${this.user} | ${this.passwd}`)
                 let main = this
-                axios.post('http://localhost:8082/auth/login', {
+                axios.post('http://carossa-oper.de:8082/auth/login', {
                     user: this.user,
                     password: this.passwd
-                })
+                }, { crossdomain: true })
                 .then(function (response) {
                     console.log(response);
                     document.cookie = "token=" + response.data.token +  "; path=/"
@@ -83,14 +83,15 @@ export default {
                 });
             }
         },
+
         register() {
             if (this.user.length != 0 || this.passwd.length != 0) {
                 let main = this
                 console.log(`${this.user} | ${this.passwd}`)
-                axios.post('http://localhost:8082/auth/register', {
+                axios.post('http://carossa-oper.de:8082/auth/register', {
                     user: this.user,
                     password: this.passwd
-                })
+                }, { crossdomain: true })
                 .then(function (response) {
                     console.log(response)
                     window.location = "/"

@@ -74,7 +74,7 @@ export default {
                 let dateString = date.getDate() + "/" + date.getMonth() + "/" + date.getFullYear()
 
                 // send new post request
-                axios.post("http://localhost:8081/api/post/new", {
+                axios.post("http://carossa-oper.de:8081/api/post/new", {
                     post: {
                         title: this.title,
                         author: this.author,
@@ -85,7 +85,7 @@ export default {
                     headers: {
                         Authorization: `Bearer ${this.getCookie("token")}`
                     }
-                })
+                }, { crossdomain: true })
                 .then(function (response) {
                     console.log(response.data);
                     window.location = "/"
@@ -95,7 +95,7 @@ export default {
                 });
             } else {
                 console.log("Post Update")
-                axios.post("http://localhost:8081/api/post/update", {
+                axios.post("http://carossa-oper.de:8081/api/post/update", {
                     post: {
                         _id: this.Post._id,
                         title: this.title,
@@ -107,7 +107,7 @@ export default {
                     headers: {
                         Authorization: `Bearer ${this.getCookie("token")}`
                     }
-                })
+                }, { crossdomain: true })
                 .then(function (response) {
                     console.log(response.data);
                     window.location = "/"

@@ -1,5 +1,5 @@
 import { createApp } from "vue/dist/vue.esm-bundler.js";
-import { createRouter, createWebHashHistory } from "vue-router";
+import { createRouter, createWebHistory } from "vue-router";
 const jwt = require("jsonwebtoken")
 
 import Dashboard from "@/views/Dashboard.vue"
@@ -13,7 +13,7 @@ const routes = [
 ]
 
 const router = createRouter ({
-    history: createWebHashHistory(),
+    history: createWebHistory(),
     base: "/",
     routes,
 })
